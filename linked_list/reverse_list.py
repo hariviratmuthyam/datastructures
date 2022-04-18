@@ -27,33 +27,49 @@ class SinglyLinkedList:
 
         self.tail = node
 
-def print_singly_linked_list(node, sep):
+def print_singly_linked_list(node, sep, fptr):
     while node:
-        print(node.data, end='')
+        fptr.write(str(node.data))
 
         node = node.next
 
         if node:
-            print(sep, end='')
+            fptr.write(sep)
 
+#
+# Complete the 'reverse' function below.
+#
+# The function is expected to return an INTEGER_SINGLY_LINKED_LIST.
+# The function accepts INTEGER_SINGLY_LINKED_LIST llist as parameter.
+#
 
-def reversePrint(llist):
-    if llist is None or llist.next is None:
+#
+# For your reference:
+#
+# SinglyLinkedListNode:
+#     int data
+#     SinglyLinkedListNode next
+#
+#
+
+def reverse(llist):
+    # Write your code here
+    if llist==None or llist.next.next==None:
         return llist
     else:
-        prev = None
-        current = llist
-        while(current is not None):
-            next = current.next
-            current.next = prev
-            prev = current
-            current = next
-        llist = prev
-    
-    while llist is not None:
-        print(llist.data)
-        llist=llist.next        
+        prev=None
+        cur=llist
+        while cur!=None:
+            next=cur.next
+            cur.next=prev
+            prev=cur
+            cur=next
+        llist=prev
+        return llist
+
 if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
     tests = int(input())
 
     for tests_itr in range(tests):
@@ -65,4 +81,9 @@ if __name__ == '__main__':
             llist_item = int(input())
             llist.insert_node(llist_item)
 
-        reversePrint(llist.head)
+        llist1 = reverse(llist.head)
+
+        print_singly_linked_list(llist1, ' ', fptr)
+        fptr.write('\n')
+
+    fptr.close()
